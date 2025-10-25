@@ -1,7 +1,8 @@
 package com.Melvin3000.NoPhantoms;
 
-import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.NamespacedKey;
 import org.bukkit.Statistic;
@@ -15,7 +16,7 @@ import net.md_5.bungee.api.chat.TranslatableComponent;
 
 public class Phantoms {
 
-	public static HashSet<UUID> noPhantomPlayers = new HashSet<UUID>();
+	public static Set<UUID> noPhantomPlayers = ConcurrentHashMap.newKeySet();
 
 	/* Refresh last rest every 10 minutes */
 	private static final int REPEAT_INTERVAL = 10 * 60 * 20;
@@ -58,7 +59,10 @@ public class Phantoms {
 	 * @param player Player to simulate sleeping for
 	 */
 	public static void rest(Player player) {
-		player.setStatistic(Statistic.TIME_SINCE_REST, 0);
+		if (player == null) {
+			return;
+		}
+		player.getScheduler().run(NoPhantoms.instance, (task) -> player.setStatistic(Statistic.TIME_SINCE_REST, 0), null);
 	}
 
 	/**
@@ -74,15 +78,10 @@ public class Phantoms {
 	 * Schedule a repeating event to rest all players
 	 */
 	public static void beginRestInterval() {
-		NoPhantoms.instance.getServer().getScheduler().runTaskTimer(
+		NoPhantoms.instance.getServer().getGlobalRegionScheduler().runAtFixedRate(
 				NoPhantoms.instance,
-				new Runnable() {
-					@Override
-					public void run() {
-						restAll();
-					}
-				},
-				0,
+				(task) -> restAll(),
+				1,
 				REPEAT_INTERVAL);
 	}
 
