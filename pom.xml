@@ -3,7 +3,7 @@
 
 	<groupId>com.Melvin3000.NoPhantoms</groupId>
 	<artifactId>NoPhantoms</artifactId>
-	<version>1.0</version>
+	<version>2.0</version>
 	<packaging>jar</packaging>
 
 	<name>NoPhantoms</name>
@@ -31,9 +31,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
 		<sourceDirectory>src</sourceDirectory>
-
 		<resources>
 			<resource>
 				<directory></directory>
@@ -42,9 +40,7 @@
 					<include>plugin.yml</include>
 				</includes>
 			</resource>
-
 		</resources>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

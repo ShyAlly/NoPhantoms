@@ -1,6 +1,6 @@
 name: NoPhantoms
 main: com.Melvin3000.NoPhantoms.NoPhantoms
-version: 1.0
+version: 2.0
 api-version: 1.15
 folia-supported: true
 commands:
